@@ -17,6 +17,6 @@ export class CreateReservationDto {
     checkout_time: string;
 
     @IsNotEmpty()
-    @IsNumber()
+    @IsNumberString()
     customer_id: number;
 }
