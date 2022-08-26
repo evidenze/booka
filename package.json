@@ -32,6 +32,7 @@
     "class-validator": "^0.13.2",
     "json-schema-traverse": "^1.0.0",
     "moment": "^2.29.4",
+    "moment-timezone": "^0.5.37",
     "mysql2": "^2.3.3",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
