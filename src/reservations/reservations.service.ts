@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { Reservation } from './entities/reservation.entity';
-import * as moment from 'moment';
+import * as moment from 'moment-timezone';
 
 @Injectable()
 export class ReservationsService {
@@ -17,6 +17,8 @@ export class ReservationsService {
   */
   async checkin(createReservationDto: CreateReservationDto): Promise<Reservation> {
     createReservationDto['status'] = 'paid';
+    createReservationDto['checking_time'] = moment.tz(createReservationDto.checking_time, 'Africa/Lagos').format();
+    createReservationDto['checkout_time'] = moment.tz(createReservationDto.checkout_time, 'Africa/Lagos').format();
     const newReservation = this.reservationsRepository.create(createReservationDto);
     return await this.reservationsRepository.save(newReservation)
   }
@@ -38,7 +40,7 @@ export class ReservationsService {
     const palatial_weekend_overdue_rate: number = 16/100; // 16%
 
     // Check if the current day is weekend or weekday
-    if (moment().day() == 0 || moment().day() == 6) {
+    if (moment.tz('Africa/Lagos').day() == 0 || moment.tz('Africa/Lagos').day() == 6) {
       var current_day: string = 'weekend';
     } else {
       var current_day: string = 'weekday';
@@ -51,8 +53,8 @@ export class ReservationsService {
     if (reservation) {
       const room_type     = reservation.room_type;
       const amount_paid   = reservation.amount_paid;
-      const checkout_time = moment(reservation.checkout_time);
-      const current_time = moment();
+      const checkout_time = reservation.checkout_time;
+      const current_time = moment.tz('Africa/Lagos');
 
       // Check if reservation is overdue
       if (current_time.diff(checkout_time) > 0) {
@@ -87,6 +89,7 @@ export class ReservationsService {
           overdue: total_overdue,
           is_overdue: true,
           is_checked_out: true,
+          chek: moment.tz('Africa/Lagos')
         }
 
       }
