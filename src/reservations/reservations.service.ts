@@ -17,8 +17,8 @@ export class ReservationsService {
   */
   async checkin(createReservationDto: CreateReservationDto): Promise<Reservation> {
     createReservationDto['status'] = 'paid';
-    createReservationDto['checking_time'] = moment(createReservationDto.checking_time, 'YYYY-MM-DD hh:mm').utcOffset('+0100').format();
-    createReservationDto['checkout_time'] = moment(createReservationDto.checkout_time, 'YYYY-MM-DD hh:mm').utcOffset('+0100').format();
+    createReservationDto['checking_time'] = moment(createReservationDto.checking_time, 'YYYY-MM-DD hh:mm').utcOffset('0100').format();
+    createReservationDto['checkout_time'] = moment(createReservationDto.checkout_time, 'YYYY-MM-DD hh:mm').utcOffset('0100').format();
     const newReservation = this.reservationsRepository.create(createReservationDto);
     return await this.reservationsRepository.save(newReservation)
   }
@@ -54,7 +54,7 @@ export class ReservationsService {
       const room_type     = reservation.room_type;
       const amount_paid   = reservation.amount_paid;
       const checkout_time = reservation.checkout_time;
-      const current_time  = moment().utcOffset('+0100');
+      const current_time  = moment().utcOffset('0100');
 
       // Check if reservation is overdue
       if (current_time.diff(checkout_time) > 0) {
