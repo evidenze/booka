@@ -17,8 +17,8 @@ export class ReservationsService {
   */
   async checkin(createReservationDto: CreateReservationDto): Promise<Reservation> {
     createReservationDto['status'] = 'paid';
-    createReservationDto['checking_time'] = moment(createReservationDto.checking_time, 'YYYY-MM-DD hh:mm').format();
-    createReservationDto['checkout_time'] = moment(createReservationDto.checkout_time, 'YYYY-MM-DD hh:mm').format();
+    createReservationDto['checking_time'] = moment(createReservationDto.checking_time, 'YYYY-MM-DD hh:mm').utcOffset('+0100').format();
+    createReservationDto['checkout_time'] = moment(createReservationDto.checkout_time, 'YYYY-MM-DD hh:mm').utcOffset('+0100').format();
     const newReservation = this.reservationsRepository.create(createReservationDto);
     return await this.reservationsRepository.save(newReservation)
   }
