@@ -54,7 +54,7 @@ export class ReservationsService {
       const room_type     = reservation.room_type;
       const amount_paid   = reservation.amount_paid;
       const checkout_time = reservation.checkout_time;
-      const current_time  = moment();
+      const current_time  = moment().utcOffset('+0100');
 
       // Check if reservation is overdue
       if (current_time.diff(checkout_time) > 0) {
