@@ -1,7 +1,7 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+A simple reservation check in and check out API with guest overdue calculate.
 
 ## Live API URL
 [https://booka-vet9b.ondigitalocean.app/](https://booka-vet9b.ondigitalocean.app/)
@@ -10,15 +10,15 @@
 Nodejs\
 TypeScript\
 MySQL\
-TypeORM\
+TypeORM
 
 ## Installation
 
 Clone the repo:
 
 ```bash
-git clone https://github.com/evidenze/bookaapi.git
-cd bookaapi
+git clone https://github.com/evidenze/booka.git
+cd booka
 ```
 
 ```bash
@@ -66,4 +66,4 @@ List of available routes:
 **Auth routes**:\
 `POST /customers` - create new customer\
 `POST /check-in` - create new reservation (Check in)\
-`POST /check-out` - Check out reservation and return overdue amount\
+`POST /check-out` - Check out reservation and return overdue amount
