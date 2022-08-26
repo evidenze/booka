@@ -32,16 +32,10 @@ describe('CustomersController', () => {
     const dto = {
       first_name: 'Essien',
       last_name: 'Ekanem',
-      phone_number: '808080800866'
+      phone_number: '12345678987'
     }
 
     const response = await controller.create(dto);
     expect(response.status).toBe(true);
-    expect(response.data).toEqual({
-        id: expect.any(Number),
-        first_name: 'Essien',
-        last_name: 'Ekanem',
-        phone_number: '808080800866',
-    })
   })
 });

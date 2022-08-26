@@ -1,7 +1,7 @@
 
 ## Description
 
-A simple reservation check in and check out API with guest overdue calculate.
+A simple reservation check in and check out API with guest overdue calculator.
 
 ## Live API URL
 [https://booka-vet9b.ondigitalocean.app/](https://booka-vet9b.ondigitalocean.app/)

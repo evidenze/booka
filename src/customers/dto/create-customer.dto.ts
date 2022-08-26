@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumberString } from "class-validator";
+import { IsNotEmpty, IsNumberString, Length } from "class-validator";
 
 export class CreateCustomerDto {
     @IsNotEmpty()
@@ -9,5 +9,6 @@ export class CreateCustomerDto {
 
     @IsNotEmpty()
     @IsNumberString()
+    @Length(11)
     phone_number: string;
 }

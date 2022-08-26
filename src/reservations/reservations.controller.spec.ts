@@ -12,7 +12,10 @@ describe('ReservationsController', () => {
         id: Date.now(),
         ...dto
       }
-    })
+    }),
+    checkout: jest.fn().mockImplementation((reservation_id) => ({
+      reservation_id
+    }))
   }
 
   beforeEach(async () => {
@@ -35,5 +38,14 @@ describe('ReservationsController', () => {
     const response = await controller.create(data);
     expect(response.status).toBe(true);
     expect(response.message).toBe('Reservation created successfully');
-  })
+  });
+
+  it('should checkout a reservation', async () => {
+    const dto = {
+      reservation_id: 1
+    }
+    const response = await controller.update(dto);
+    expect(response.status).toBe(true);
+    expect(response.message).toBe('Checkout successful')
+  });
 });
