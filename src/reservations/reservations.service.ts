@@ -16,9 +16,11 @@ export class ReservationsService {
   Create new reservation (Check in)
   */
   async checkin(createReservationDto: CreateReservationDto): Promise<Reservation> {
+    
     createReservationDto['status'] = 'paid';
     createReservationDto['checking_time'] = moment.tz(createReservationDto.checking_time, 'Africa/Lagos').format();
     createReservationDto['checkout_time'] = moment.tz(createReservationDto.checkout_time, 'Africa/Lagos').format();
+
     const newReservation = this.reservationsRepository.create(createReservationDto);
     return await this.reservationsRepository.save(newReservation)
   }
@@ -89,7 +91,6 @@ export class ReservationsService {
           overdue: total_overdue,
           is_overdue: true,
           is_checked_out: true,
-          chek: moment.tz('Africa/Lagos')
         }
 
       }
