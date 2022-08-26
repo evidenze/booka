@@ -58,10 +58,10 @@ export class ReservationsService {
       if (current_time.diff(checkout_time) > 0) {
 
         // Get overdue hours
-        let overdue_hours = moment.duration(current_time.diff(checkout_time)).asHours();
+        const overdue_hours = moment.duration(current_time.diff(checkout_time)).asHours();
 
         // Round additional minutes to 1 hour
-        overdue_hours = Math.ceil(overdue_hours);
+        const rounded_overdue_hours = Math.ceil(overdue_hours);
 
         //Calculate hourly overdues
         if (room_type == 'deluxe' && current_day == 'weekday') {
@@ -79,11 +79,11 @@ export class ReservationsService {
         }
 
         //Calculate total overdues
-        const total_overdue = overdue * overdue_hours;
+        const total_overdue = overdue * rounded_overdue_hours;
 
         // Return overdue results
         return {
-          overdue_hours: overdue_hours,
+          overdue_hours: rounded_overdue_hours,
           overdue: total_overdue,
           is_overdue: true,
           is_checked_out: true
