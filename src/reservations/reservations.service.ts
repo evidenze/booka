@@ -79,11 +79,11 @@ export class ReservationsService {
         }
 
         //Calculate total overdues
-        const total_overdue = overdue * rounded_overdue_hours;
+        const total_overdue = overdue * overdue_hours;
 
         // Return overdue results
         return {
-          overdue_hours: rounded_overdue_hours,
+          overdue_hours: overdue_hours,
           overdue: total_overdue,
           is_overdue: true,
           is_checked_out: true
