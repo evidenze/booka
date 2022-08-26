@@ -63,3 +63,6 @@ List of available routes:
 **Reservation routes**:\
 `POST /check-in` - create new reservation (Check in)\
 `POST /check-out` - Check out reservation and return overdue amount
+
+Create a reservation with a past checkout date to check the overdue amount.\
+To check non-overdue reservation, create reservation with a future checkout date.
