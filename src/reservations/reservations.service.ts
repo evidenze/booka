@@ -17,7 +17,8 @@ export class ReservationsService {
   */
   async checkin(createReservationDto: CreateReservationDto): Promise<Reservation> {
     createReservationDto['status'] = 'paid';
-    return this.reservationsRepository.save(createReservationDto);
+    const newReservation = this.reservationsRepository.create(createReservationDto);
+    return await this.reservationsRepository.save(newReservation)
   }
 
 
@@ -85,6 +86,7 @@ export class ReservationsService {
           overdue_hours: overdue_hours,
           overdue: total_overdue,
           is_overdue: true,
+          is_checked_out: true
         }
 
       }
@@ -94,6 +96,7 @@ export class ReservationsService {
         overdue_hours: 0,
         overdue: 0,
         is_overdue: false,
+        is_checked_out: true
       }
     }
 

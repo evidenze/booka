@@ -1,7 +1,6 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Put } from '@nestjs/common';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
-import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { CheckoutDto } from './dto/checkout.dto';
 
 @Controller()
@@ -21,7 +20,7 @@ export class ReservationsController {
   }
 
   // Check out reservation and return overdue amount
-  @Put('/check-out')
+  @Post('/check-out')
   async update(@Body() checkoutDto: CheckoutDto) {
     const checkout = await this.reservationsService.checkout(checkoutDto.reservation_id);
 

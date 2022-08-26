@@ -1,37 +1,47 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import * as moment from 'moment';
-import { Repository } from 'typeorm';
 import { CustomersController } from './customers.controller';
 import { CustomersService } from './customers.service';
-import { Customer } from './entities/customer.entity';
+import * as moment from 'moment';
 
 describe('CustomersController', () => {
-  let customersController: CustomersController;
-  let customersService: CustomersService;
-  let customersRepository: Repository<Customer>
+  let controller: CustomersController;
+
+  const mockUsersService = {
+    create: jest.fn(dto => {
+      return {
+        id: Date.now(),
+        ...dto
+      }
+    })
+  }
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CustomersController],
-      providers: [CustomersService,],
-    }).compile();
+      providers: [CustomersService],
+    }).overrideProvider(CustomersService).useValue(mockUsersService).compile();
 
-    customersController = module.get<CustomersController>(CustomersController);
-    customersService = module.get<CustomersService>(CustomersService)
+    controller = module.get<CustomersController>(CustomersController);
   });
 
-  describe('create', () => {
-    it('should return an array of cats', async () => {
-      const result = {
+  it('should be defined', () => {
+    expect(controller).toBeDefined();
+  });
+
+  it('should create a customer', async () => {
+    const dto = {
+      first_name: 'Essien',
+      last_name: 'Ekanem',
+      phone_number: '808080800866'
+    }
+
+    const response = await controller.create(dto);
+    expect(response.status).toBe(true);
+    expect(response.data).toEqual({
+        id: expect.any(Number),
         first_name: 'Essien',
         last_name: 'Ekanem',
-        phone_number: '08989899',
-        id: 1
-      };
-
-      jest.spyOn(customersService, 'create').mockResolvedValue(result)
-
-      expect(await customersController.create(result)).resolves.toEqual(result)
-    });
-  });
+        phone_number: '808080800866',
+    })
+  })
 });
