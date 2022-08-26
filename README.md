@@ -63,7 +63,9 @@ $ npm run test:cov
 
 List of available routes:
 
-**Auth routes**:\
-`POST /customers` - create new customer\
+**Customer route**:\
+`POST /customers` - create new customer
+
+**Reservation routes**:\
 `POST /check-in` - create new reservation (Check in)\
 `POST /check-out` - Check out reservation and return overdue amount
