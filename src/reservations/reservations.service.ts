@@ -16,7 +16,7 @@ export class ReservationsService {
   Create new reservation (Check in)
   */
   async checkin(createReservationDto: CreateReservationDto): Promise<Reservation> {
-    
+
     createReservationDto['status'] = 'paid';
     createReservationDto['checking_time'] = moment.tz(createReservationDto.checking_time, 'Africa/Lagos').format();
     createReservationDto['checkout_time'] = moment.tz(createReservationDto.checkout_time, 'Africa/Lagos').format();
@@ -88,7 +88,7 @@ export class ReservationsService {
         // Return overdue results
         return {
           overdue_hours: rounded_overdue_hours,
-          overdue: total_overdue,
+          overdue_amount: total_overdue,
           is_overdue: true,
           is_checked_out: true,
         }
@@ -98,7 +98,7 @@ export class ReservationsService {
       // Return non-overdue results
       return {
         overdue_hours: 0,
-        overdue: 0,
+        overdue_amount: 0,
         is_overdue: false,
         is_checked_out: true
       }
