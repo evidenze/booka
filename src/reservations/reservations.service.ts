@@ -17,6 +17,8 @@ export class ReservationsService {
   */
   async checkin(createReservationDto: CreateReservationDto): Promise<Reservation> {
     createReservationDto['status'] = 'paid';
+    createReservationDto['checking_time'] = moment(createReservationDto.checking_time, 'YYYY-MM-DD hh:mm').format();
+    createReservationDto['checkout_time'] = moment(createReservationDto.checkout_time, 'YYYY-MM-DD hh:mm').format();
     const newReservation = this.reservationsRepository.create(createReservationDto);
     return await this.reservationsRepository.save(newReservation)
   }
@@ -51,7 +53,7 @@ export class ReservationsService {
     if (reservation) {
       const room_type     = reservation.room_type;
       const amount_paid   = reservation.amount_paid;
-      const checkout_time = moment(reservation.checkout_time);
+      const checkout_time = reservation.checkout_time;
       const current_time  = moment();
 
       // Check if reservation is overdue
@@ -79,11 +81,11 @@ export class ReservationsService {
         }
 
         //Calculate total overdues
-        const total_overdue = overdue * overdue_hours;
+        const total_overdue = overdue * rounded_overdue_hours;
 
         // Return overdue results
         return {
-          overdue_hours: overdue_hours,
+          overdue_hours: rounded_overdue_hours,
           overdue: total_overdue,
           is_overdue: true,
           is_checked_out: true
