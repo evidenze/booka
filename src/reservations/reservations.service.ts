@@ -87,7 +87,6 @@ export class ReservationsService {
           overdue: total_overdue,
           is_overdue: true,
           is_checked_out: true,
-          check: checkout_time
         }
 
       }
